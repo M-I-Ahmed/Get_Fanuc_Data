@@ -4,6 +4,8 @@ from Read_Robot_Data import FanucReaderRPI
 
 
 from src.fanucpy.robot import Robot
+
+
  
 robot = Robot(
     robot_model="Fanuc",
@@ -14,6 +16,14 @@ robot = Robot(
 )
  
 robot.connect()
+
+fanuc_reader = FanucReaderRPI(
+    robot_model="Fanuc",
+    host="127.0.0.1",
+    port=18736,
+    ee_DO_type="RDO",
+    ee_DO_num=7,
+)
  
 print(robot.get_curjpos())
  
@@ -44,7 +54,6 @@ poses = {
     ],
 }
  
- 
 def pick(p1, p2, p3):
     robot.move(move_type="joint", vals=p1, velocity=50, acceleration=50)
     robot.gripper(True)
@@ -64,10 +73,14 @@ colors = ["white", "red", "green"]
 for _ in range(1):
     for color in colors:
         pick(poses[color][0], poses[color][1], poses[color][2])
+        current_reading = fanuc_reader.get_next_reading()
+        print(current_reading)
         place(poses[color][3], poses[color][4], poses[color][5])
  
     for color in colors:
         pick(poses[color][3], poses[color][4], poses[color][5])
+        current_reading = fanuc_reader.get_next_reading()
+        print(current_reading)
         place(poses[color][0], poses[color][1], poses[color][2])
  
 
