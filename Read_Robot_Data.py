@@ -1,5 +1,5 @@
 import csv
-from fanucpy_updatedV2 import Robot
+from src import Robot
 
 class FanucReader:
 
@@ -135,10 +135,22 @@ class FanucReaderRPI(FanucReader):
             **{ k: v for k, v in zip(['X', 'Y', 'Z', 'W', 'P', 'R'], curpos) },
             **{ k: v for k, v in zip(['J1', 'J2', 'J3', 'J4', 'J5', 'J6'], curjpos) },
             **{ "rdo": rdo } 
+            **{ "rdi101": rdi101 }
+            **{ "rdi102": rdi102 }
+            **{ "rdi103": rdi103 }
+            **{ "rdi104": rdi104 }
+            **{ "rdi105": rdi105 }
+            **{ "rdi106": rdi106 }
+            **{ "rdi107": rdi107 }
+            **{ "rdi108": rdi108 }
             **{ "do101": do101 }
+            **{ "do102": do102 }
+
         }
+        ##### work needs doing here
         
         return reading
+
 
 
 
