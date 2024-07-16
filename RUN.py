@@ -1,11 +1,12 @@
 from datetime import datetime
 import time 
 from Read_Robot_Data import FanucReaderRPI
+import Calc_Robot_Indices as ri
 
 
 from src.fanucpy.robot import Robot
 
-
+update_time = 1
  
 robot = Robot(
     robot_model="Fanuc",
@@ -67,14 +68,26 @@ def place(p1, p2, p3):
     robot.move(move_type="joint", vals=p2, velocity=50, acceleration=50)
     robot.gripper(True)
     robot.move(move_type="joint", vals=p3, velocity=50, acceleration=50)
- 
+
+previous_cost = 0
+previous_time, previous_velocity = -1, None
+update_time = time.time()
  
 colors = ["white", "red", "green"]
 for _ in range(1):
     for color in colors:
         pick(poses[color][0], poses[color][1], poses[color][2])
+        current_time = time.time()
+        dt = current_time - previous_time
         current_reading = fanuc_reader.get_next_reading()
         print(current_reading)
+        current_time = time.time()
+        cost = ri.compute_energy_cost(current_reading, previous_cost, dt)
+        previous_cost += cost['cost']
+        previous_time = current_time
+        previous_reading = current_reading
+        print(f"cost: {cost}")
+        print("Hello")
         place(poses[color][3], poses[color][4], poses[color][5])
  
     for color in colors:

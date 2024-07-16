@@ -19,14 +19,14 @@ class FanucReader:
             "J5"    : None, 
             "J6"    : None,
             "rdo"   : None, # The following are true if the value is 1, Gripper Open
-            # "rdi101": None, # Air Pressure On
-            # "rdi102": None, # Upper Beam Present
-            # "rdi103": None, # Lower Beam Present
-            # "rdi104": None, # Aerostructure Present
-            # "rdi105": None, # Upper Beam Stored
-            # "rdi106": None, # Lower Beam Stored
-            # "rdi107": None, # Aerostructure Stored
-            # "rdi108": None, # Blade Stored
+            "rdi101": None, # Air Pressure On
+            "rdi102": None, # Upper Beam Present
+            "rdi103": None, # Lower Beam Present
+            "rdi104": None, # Aerostructure Present
+            "rdi105": None, # Upper Beam Stored
+            "rdi106": None, # Lower Beam Stored
+            "rdi107": None, # Aerostructure Stored
+            "rdi108": None, # Blade Stored
             "do101" : None, # Upper Clamp Open
             "do102" : None  # Lower Clamp Open
         }
@@ -65,14 +65,14 @@ class FanucReaderCSV(FanucReader):
             "J5"    : self.fanuc_py[self._iter]["J5"], 
             "J6"    : self.fanuc_py[self._iter]["J6"],
             "rdo"   : self.fanuc_py[self._iter]["rdo"],
-            # "rdi101": self.fanuc_py[self._iter]["rdi101"],
-            # "rdi102": self.fanuc_py[self._iter]["rdi102"],
-            # "rdi103": self.fanuc_py[self._iter]["rdi103"],
-            # "rdi104": self.fanuc_py[self._iter]["rdi104"],
-            # "rdi105": self.fanuc_py[self._iter]["rdi105"],
-            # "rdi106": self.fanuc_py[self._iter]["rdi106"],
-            # "rdi107": self.fanuc_py[self._iter]["rdi107"],
-            # "rdi108": self.fanuc_py[self._iter]["rdi108"],
+            "rdi101": self.fanuc_py[self._iter]["rdi101"],
+            "rdi102": self.fanuc_py[self._iter]["rdi102"],
+            "rdi103": self.fanuc_py[self._iter]["rdi103"],
+            "rdi104": self.fanuc_py[self._iter]["rdi104"],
+            "rdi105": self.fanuc_py[self._iter]["rdi105"],
+            "rdi106": self.fanuc_py[self._iter]["rdi106"],
+            "rdi107": self.fanuc_py[self._iter]["rdi107"],
+            "rdi108": self.fanuc_py[self._iter]["rdi108"],
             "do101" : self.fanuc_py[self._iter]["do101"],
             "do102": self.fanuc_py[self._iter]["do102"]
         }
@@ -116,14 +116,14 @@ class FanucReaderRPI(FanucReader):
         curpos  = self.robot.get_curpos()
         curjpos = self.robot.get_curjpos()
         rdo     = self.robot.get_rdo(self.ee_DO_num)
-        # rdi101  = self.robot.get_din(101)
-        # rdi102  = self.robot.get_din(102)
-        # rdi103  = self.robot.get_din(103)
-        # rdi104  = self.robot.get_din(104)
-        # rdi105  = self.robot.get_din(105)
-        # rdi106  = self.robot.get_din(106)
-        # rdi107  = self.robot.get_din(107)
-        # rdi108  = self.robot.get_din(108)
+        rdi101  = self.robot.get_din(101)
+        rdi102  = self.robot.get_din(102)
+        rdi103  = self.robot.get_din(103)
+        rdi104  = self.robot.get_din(104)
+        rdi105  = self.robot.get_din(105)
+        rdi106  = self.robot.get_din(106)
+        rdi107  = self.robot.get_din(107)
+        rdi108  = self.robot.get_din(108)
         do101   = self.robot.get_dout(101)
         do102   = self.robot.get_dout(102)
 
@@ -137,21 +137,21 @@ class FanucReaderRPI(FanucReader):
             **{ k: v for k, v in zip(['X', 'Y', 'Z', 'W', 'P', 'R'], curpos) },
             **{ k: v for k, v in zip(['J1', 'J2', 'J3', 'J4', 'J5', 'J6'], curjpos) },
             **{ "rdo": rdo }, 
-            # **{ "rdi101": rdi101 }
-            # **{ "rdi102": rdi102 }
-            # **{ "rdi103": rdi103 }
-            # **{ "rdi104": rdi104 }
-            # **{ "rdi105": rdi105 }
-            # **{ "rdi106": rdi106 }
-            # **{ "rdi107": rdi107 }
-            # **{ "rdi108": rdi108 }
+            **{ "rdi101": rdi101 },
+            **{ "rdi102": rdi102 },
+            **{ "rdi103": rdi103 },
+            **{ "rdi104": rdi104 },
+            **{ "rdi105": rdi105 },
+            **{ "rdi106": rdi106 },
+            **{ "rdi107": rdi107 },
+            **{ "rdi108": rdi108 },
             **{ "do101": do101 },
             **{ "do102": do102 }
 
         }
         ##### work needs doing here
         
-        return power
+        return reading
 
 
 

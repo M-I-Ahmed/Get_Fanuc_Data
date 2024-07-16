@@ -40,12 +40,12 @@ def main(rpi=True):
             current_velocity = ri.compute_velocity(previous_reading, current_reading, dt)
             current_acceleration = ri.compute_acceleration(previous_velocity, current_velocity, dt)
             cost = ri.compute_energy_cost(current_reading, previous_cost, dt)
-    
 
             # Print computed values
             print(f"Velocity: {current_velocity}")
             print(f"Acceleration: {current_acceleration}")
             print(f"Energy Cost: {cost}")
+         
 
             # Update the previous values
             previous_velocity = current_velocity
