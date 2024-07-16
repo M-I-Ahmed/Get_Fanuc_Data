@@ -574,13 +574,11 @@ BEGIN
     CNV_STR_INT(SUB_STR(cmd, 8, 5), din_num)
 
     IF DIN[din_num] = TRUE THEN
-        DIN[din_num] = TRUE
         resp = '0:1'
         RETURN(resp)
     ENDIF
 
     IF DIN[din_num] = FALSE THEN
-        DIN[din_num] = FALSE
         resp = '0:0'
         RETURN(resp)
     ENDIF
@@ -713,17 +711,17 @@ BEGIN
         RETURN(TRUE)
     ENDIF
 
-    -- setsysvar: set System Variable
-	IF SUB_STR(cmd, 1, 9) = 'setsysvar' THEN
-        resp = SET_SYS_VAR(cmd)
-        RETURN(TRUE)
-	ENDIF
-
     -- getdin: get Digital Input
     IF SUB_STR(cmd, 1, 6) = 'getdin' THEN
         resp = GET_DIN(cmd)
         RETURN(TRUE)
     ENDIF 
+
+    -- setsysvar: set System Variable
+	IF SUB_STR(cmd, 1, 9) = 'setsysvar' THEN
+        resp = SET_SYS_VAR(cmd)
+        RETURN(TRUE)
+	ENDIF
 
     -- if none of the above cmds matched
     WRITE('WRONG COMMAND: ', cmd, CR)
