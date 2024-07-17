@@ -1,5 +1,7 @@
+import paho.mqtt.client as mqtt
 from datetime import datetime
 import time
+import json
 
 from Read_Robot_Data import FanucReaderCSV, FanucReaderRPI
 import Calc_Robot_Indices as ri
@@ -11,7 +13,7 @@ class RobotOperation:
         # Get the fanuc reader
         self.fanuc_reader = FanucReaderRPI(
             robot_model="Fanuc",
-            host="127.0.0.1",
+            host="192.168.125.109",
             port=18736,
             ee_DO_type="RDO",
             ee_DO_num=7,
@@ -20,6 +22,9 @@ class RobotOperation:
         self.previous_time = -1
         self.previous_velocity = None
         self.previous_reading = None
+
+        # self.mqtt_client = mqtt.Client()
+        # self.mqtt_client.connect("localhost", 1883, 60)
 
     def perform_calculations(self):
         update_time = time.time()
@@ -31,7 +36,15 @@ class RobotOperation:
 
             # Print current readings
             print(f"Time: {current_datetime}")
-            print(f"Current Reading: {current_reading}")
+
+            #print(f"Current Reading: {current_reading}")
+            current_X = current_reading.get('X', None)
+            current_Y = current_reading.get('Y', None)
+            current_Z = current_reading.get('Z', None)
+
+            print(f"current_X = {current_X}")
+            print(f"current_y = {current_Y}")
+            print(f"current_z = {current_Z}")
 
             if self.previous_time != -1:
                 dt = current_time - self.previous_time
@@ -44,6 +57,14 @@ class RobotOperation:
                 print(f"Velocity: {current_velocity}")
                 print(f"Acceleration: {current_acceleration}")
                 print(f"Energy Cost: {cost}")
+
+                # #payload = {
+                #     "timestamp": current_datetime,
+                #     "velocity": current_velocity,
+                #     "acceleration": current_acceleration,
+                #     "energy_cost": cost
+                # }
+                #self.mqtt_client.publish("sensor/data", json.dumps(payload))
 
                 # Update the previous values
                 self.previous_velocity = current_velocity

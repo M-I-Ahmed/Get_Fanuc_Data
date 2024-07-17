@@ -27,8 +27,8 @@ VAR
 CONST
     SERVER_TAG_NUM = 8
     PORT_NUMBER = 18735
-    UFRAMENUM = 8
-    TOOLNUM = 8
+    UFRAMENUM = 0
+    TOOLNUM = 1
 
 
 -- Include routines
