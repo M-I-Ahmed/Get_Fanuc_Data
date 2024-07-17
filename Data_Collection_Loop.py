@@ -13,7 +13,7 @@ class RobotOperation:
         # Get the fanuc reader
         self.fanuc_reader = FanucReaderRPI(
             robot_model="Fanuc",
-            host="192.168.125.109",
+            host="127.0.0.1",
             port=18736,
             ee_DO_type="RDO",
             ee_DO_num=7,
