@@ -3,6 +3,10 @@ import time
 from Read_Robot_Data import FanucReaderRPI
 import Calc_Robot_Indices as ri
 
+### IMPORTANT ###
+### The robot in this case was a Fanuc Educational Cell
+### The movement code will have to be modified if a different robot is being used
+### Testing in the ROBOGUIDE Simulation Environment is STRONGLY ENCOURAGED
 
 from src.fanucpy.robot import Robot
 
