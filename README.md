@@ -8,8 +8,8 @@ The Robot used to test this was a Fanuc ER-4iA (Educational Cell) with an R-30iB
 
 # Software Contents
 The software contains two main elements
-1) Fanuc Python API [(fanucpy)] https://github.com/M-I-Ahmed/fanucpy_updated - To enable the communication with the robot. 
-2) The Data Collection - A Python Loop that queries the robot's state every second and prints the results out to the terminal. This loop relies on the Read_Robot_Data Script to interact with the robot and retrieve the required data, and the Calc_Robot_Indices to use the data to make some calculations and include these as outputs of the loop.  
+1) Fanuc Python API [(fanucpy)](https://github.com/M-I-Ahmed/fanucpy_updated) - To enable the communication with the robot. 
+2) The Data Collection Loop- A Python Loop that queries the robot's state every second and prints the results out to the terminal. This loop relies on the Read_Robot_Data Script to interact with the robot and retrieve the required data, and the Calc_Robot_Indices to use the data to make some calculations and include these as outputs of the loop.  
 
 # Driver Installation
 Follow the installation instructions for the driver as detailed in the following [guide](https://github.com/torayeff/fanucpy/blob/main/fanuc.md). 
