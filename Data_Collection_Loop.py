@@ -1,4 +1,3 @@
-import paho.mqtt.client as mqtt
 from datetime import datetime
 import time
 import json
@@ -23,8 +22,6 @@ class RobotOperation:
         self.previous_velocity = None
         self.previous_reading = None
 
-        # self.mqtt_client = mqtt.Client()
-        # self.mqtt_client.connect("localhost", 1883, 60)
 
     def perform_calculations(self):
         update_time = time.time()
@@ -37,14 +34,27 @@ class RobotOperation:
             # Print current readings
             print(f"Time: {current_datetime}")
 
-            #print(f"Current Reading: {current_reading}")
+            print(f"Current Reading: {current_reading}")
             current_X = current_reading.get('X', None)
             current_Y = current_reading.get('Y', None)
             current_Z = current_reading.get('Z', None)
+            current_rdo = current_reading.get('rdo', None)
+            current_rdi101 = current_reading.get('rdi101',None)
+            current_rdi102 = current_reading.get('rdi102',None)
+            current_rdi103 = current_reading.get('rdi103',None)
+            current_rdi104 = current_reading.get('rdi104',None)
+            current_rdi105 = current_reading.get('rdi105',None)
+            current_rdi106 = current_reading.get('rdi106',None)
+            current_rdi107 = current_reading.get('rdi107',None)
+            current_rdi108 = current_reading.get('rdi108',None)
+            current_do101 = current_reading.get('do101',None)
+            current_do102 = current_reading.get('do102',None)
 
             print(f"current_X = {current_X}")
             print(f"current_y = {current_Y}")
             print(f"current_z = {current_Z}")
+            print(f"current_rdi101 = {current_rdi101}" )
+
 
             if self.previous_time != -1:
                 dt = current_time - self.previous_time
@@ -58,13 +68,6 @@ class RobotOperation:
                 print(f"Acceleration: {current_acceleration}")
                 print(f"Energy Cost: {cost}")
 
-                # #payload = {
-                #     "timestamp": current_datetime,
-                #     "velocity": current_velocity,
-                #     "acceleration": current_acceleration,
-                #     "energy_cost": cost
-                # }
-                #self.mqtt_client.publish("sensor/data", json.dumps(payload))
 
                 # Update the previous values
                 self.previous_velocity = current_velocity
